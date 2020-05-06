@@ -65,6 +65,7 @@ class Artist(db.Model):
     website = db.Column(db.String(120))
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
+    shows = db.relationship('Show', backref="artist", lazy=True)
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate -> DONE
 
@@ -75,6 +76,7 @@ class Show(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   time = db.Column(db.DateTime, nullable=False)
   venue_id = db.Column(db.Integer, db.ForeignKey('venues.id'), nullable=False)
+  artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
 
 #----------------------------------------------------------------------------#
 # Filters.
