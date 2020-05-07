@@ -70,6 +70,7 @@ class Artist(db.Model):
     # TODO: implement any missing fields, as a database migration using Flask-Migrate -> DONE
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration. -> DONE
+
 class Show(db.Model):
   __tablename__ = 'shows'
 
@@ -78,6 +79,7 @@ class Show(db.Model):
   venue_id = db.Column(db.Integer, db.ForeignKey('venues.id'), nullable=False)
   artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
 
+db.create_all()
 #----------------------------------------------------------------------------#
 # Filters.
 #----------------------------------------------------------------------------#
@@ -556,13 +558,34 @@ def create_shows():
 @app.route('/shows/create', methods=['POST'])
 def create_show_submission():
   # called to create new shows in the db, upon submitting new show listing form
-  # TODO: insert form data as a new Show record in the db, instead
+  # TODO: insert form data as a new Show record in the db, instead -> DONE
+  error = False
+  try:
+    new_show = ShowForm(request.form)
+    artist_id = new_show.artist_id.data
+    venue_id = new_show.venue_id.data
+    start_time = new_show.start_time.data
 
-  # on successful db insert, flash success
-  flash('Show was successfully listed!')
-  # TODO: on unsuccessful db insert, flash an error instead.
-  # e.g., flash('An error occurred. Show could not be listed.')
-  # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
+    show = Show(time = start_time)
+    artist = Artist.query.get(artist_id)
+    venue = Venue.query.get(venue_id)
+    show.artist = artist
+    show.venue = venue
+    db.session.add(show)
+    db.session.commit()
+  except:
+    db.session.rollback()
+    error = True
+    print(sys.exc_info())
+  finally:
+    db.session.close()
+  if not error:
+    # on successful db insert, flash success
+    flash('Show was successfully listed!')
+  else:
+    # TODO: on unsuccessful db insert, flash an error instead.
+    flash('An error occurred. Show could not be listed.')
+    # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
   return render_template('pages/home.html')
 
 @app.errorhandler(404)
