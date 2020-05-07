@@ -243,8 +243,8 @@ def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead -> DONE
   # TODO: modify data to be the data object returned from db insertion
   error = False
-  # initialize body dectionally
-  body = {}
+  # initialize data dectionally
+  data = {}
   try:
     new_venue = request.form
     name = new_venue['name']
@@ -255,13 +255,13 @@ def create_venue_submission():
     genres = new_venue['genres']
     facebook_link = new_venue['facebook_link']
 
-    body['name'] = name
-    body['city'] = city
-    body['state'] = state
-    body['address'] = address
-    body['phone'] = phone
-    body['genres'] = genres
-    body['facebook_link'] = facebook_link
+    data['name'] = name
+    data['city'] = city
+    data['state'] = state
+    data['address'] = address
+    data['phone'] = phone
+    data['genres'] = genres
+    data['facebook_link'] = facebook_link
 
     venue = Venue(
       name=name,
@@ -472,13 +472,48 @@ def create_artist_form():
 @app.route('/artists/create', methods=['POST'])
 def create_artist_submission():
   # called upon submitting the new artist listing form
-  # TODO: insert form data as a new Venue record in the db, instead
+  # TODO: insert form data as a new Venue record in the db, instead -> DONE
   # TODO: modify data to be the data object returned from db insertion
+  error = False
+  # initialize data dectionally
+  data = {}
+  try:
+    new_artist = request.form
+    name = new_artist['name']
+    city = new_artist['city']
+    state = new_artist['state']
+    phone = new_artist['phone']
+    genres = new_artist['genres']
+    facebook_link = new_artist['facebook_link']
 
-  # on successful db insert, flash success
-  flash('Artist ' + request.form['name'] + ' was successfully listed!')
-  # TODO: on unsuccessful db insert, flash an error instead.
-  # e.g., flash('An error occurred. Artist ' + data.name + ' could not be listed.')
+    data['name'] = name
+    data['city'] = city
+    data['state'] = state
+    data['phone'] = phone
+    data['genres'] = genres
+    data['facebook_link'] = facebook_link
+
+    artist = Artist(
+      name=name,
+      city=city,
+      state=state,
+      phone=phone,
+      facebook_link=facebook_link,
+      genres=genres
+    )
+    db.session.add(artist)
+    db.session.commit()
+  except:
+    db.session.rollback()
+    error = True
+  finally:
+    db.session.close()
+  if not error:
+    # on successful db insert, flash success
+    flash('Artist ' + request.form['name'] + ' was successfully listed!')
+  else:
+    # TODO: on unsuccessful db insert, flash an error instead.
+    flash('An error occurred. Artist ' + data.name + ' could not be listed.')
   return render_template('pages/home.html')
 
 
