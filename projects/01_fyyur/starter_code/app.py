@@ -576,7 +576,6 @@ def create_show_submission():
   except:
     db.session.rollback()
     error = True
-    print(sys.exc_info())
   finally:
     db.session.close()
   if not error:
