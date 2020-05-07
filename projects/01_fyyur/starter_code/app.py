@@ -241,27 +241,18 @@ def create_venue_form():
 @app.route('/venues/create', methods=['POST'])
 def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead -> DONE
-  # TODO: modify data to be the data object returned from db insertion
+  # TODO: modify data to be the data object returned from db insertion -> DONE
   error = False
   # initialize data dectionally
-  data = {}
   try:
-    new_venue = request.form
-    name = new_venue['name']
-    city = new_venue['city']
-    state = new_venue['state']
-    address = new_venue['address']
-    phone = new_venue['phone']
-    genres = new_venue['genres']
-    facebook_link = new_venue['facebook_link']
-
-    data['name'] = name
-    data['city'] = city
-    data['state'] = state
-    data['address'] = address
-    data['phone'] = phone
-    data['genres'] = genres
-    data['facebook_link'] = facebook_link
+    new_venue = VenueForm(request.form)
+    name = new_venue.name.data
+    city = new_venue.city.data
+    state = new_venue.state.data
+    address = new_venue.address.data
+    phone = new_venue.phone.data
+    genres = new_venue.genres.data
+    facebook_link = new_venue.facebook_link.data
 
     venue = Venue(
       name=name,
@@ -279,12 +270,13 @@ def create_venue_submission():
     error = True
   finally:
     db.session.close()
+    pass
   if not error:
     # on successful db insert, flash success
     flash('Venue ' + request.form['name'] + ' was successfully listed!')
   else:
     # TODO: on unsuccessful db insert, flash an error instead. -> DONE
-    flash('An error occurred. Venue ' + data.name + ' could not be listed.')
+    flash('An error occurred. Venue ' + new_venue.name.data + ' could not be listed.')
     # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
   return render_template('pages/home.html')
 
@@ -473,25 +465,17 @@ def create_artist_form():
 def create_artist_submission():
   # called upon submitting the new artist listing form
   # TODO: insert form data as a new Venue record in the db, instead -> DONE
-  # TODO: modify data to be the data object returned from db insertion
+  # TODO: modify data to be the data object returned from db insertion -> DONE
   error = False
   # initialize data dectionally
-  data = {}
   try:
-    new_artist = request.form
-    name = new_artist['name']
-    city = new_artist['city']
-    state = new_artist['state']
-    phone = new_artist['phone']
-    genres = new_artist['genres']
-    facebook_link = new_artist['facebook_link']
-
-    data['name'] = name
-    data['city'] = city
-    data['state'] = state
-    data['phone'] = phone
-    data['genres'] = genres
-    data['facebook_link'] = facebook_link
+    new_artist = ArtistForm(request.form)
+    name = new_artist.name.data
+    city = new_artist.city.data
+    state = new_artist.state.data
+    phone = new_artist.phone.data
+    genres = new_artist.genres.data
+    facebook_link = new_artist.facebook_link.data
 
     artist = Artist(
       name=name,
@@ -513,7 +497,7 @@ def create_artist_submission():
     flash('Artist ' + request.form['name'] + ' was successfully listed!')
   else:
     # TODO: on unsuccessful db insert, flash an error instead.
-    flash('An error occurred. Artist ' + data.name + ' could not be listed.')
+    flash('An error occurred. Artist ' + new_artist.name.data + ' could not be listed.')
   return render_template('pages/home.html')
 
 
