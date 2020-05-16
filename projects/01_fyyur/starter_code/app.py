@@ -13,6 +13,7 @@ import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
+from datetime import datetime
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -109,28 +110,71 @@ def index():
 @app.route('/venues')
 def venues():
   # TODO: replace with real venues data.
-  #       num_shows should be aggregated based on number of upcoming shows per venue.
-  data=[{
-    "city": "San Francisco",
-    "state": "CA",
-    "venues": [{
-      "id": 1,
-      "name": "The Musical Hop",
-      "num_upcoming_shows": 0,
-    }, {
-      "id": 3,
-      "name": "Park Square Live Music & Coffee",
-      "num_upcoming_shows": 1,
-    }]
-  }, {
-    "city": "New York",
-    "state": "NY",
-    "venues": [{
-      "id": 2,
-      "name": "The Dueling Pianos Bar",
-      "num_upcoming_shows": 0,
-    }]
-  }]
+  #       num_shows should be aggregated based on number of upcoming shows per venue. -> DONE
+  data = []
+  # select state
+  state_list = []
+  venues = Venue.query.all()
+  for venue in venues:
+    state = venue.state
+    if state in state_list:
+      continue
+    else:
+      state_list.append(state)
+  # for each state, list cities and venues inside it.
+  for state in state_list:
+    venues = Venue.query.filter(Venue.state == state)
+    # select city
+    city_list = []
+    for venue in venues:
+      city = venue.city
+      if city in city_list:
+        continue
+      else:
+        city_list.append(city)
+    # list all venues in each city
+    for city in city_list:
+      data_item = {}
+      data_item['city'] = city
+      data_item['state'] = state
+      print(city, state)
+      venues = Venue.query.filter(Venue.city == city)
+      venues_in_city = []
+      for venue in venues:
+        venue_item = {}
+        venue_item['id'] = venue.id
+        venue_item['name'] = venue.name
+        # print('id:', id, ', name:' , name)
+        shows = Show.query.filter(Show.venue_id == venue.id).filter(Show.time >= datetime.utcnow())
+        # shows = Show.query.filter(Show.venue_id == id).filter(Show.time >= '2020-05-06 12:00:00')
+        print('show:', shows.count())
+        venue_item['num_upcoming_shows'] = shows.count()
+        venues_in_city.append(venue_item)
+      data_item['venues'] = venues_in_city
+      data.append(data_item)
+  print('data:', data)
+
+  # data=[{
+  #   "city": "San Francisco",
+  #   "state": "CA",
+  #   "venues": [{
+  #     "id": 1,
+  #     "name": "The Musical Hop",
+  #     "num_upcoming_shows": 0,
+  #   }, {
+  #     "id": 3,
+  #     "name": "Park Square Live Music & Coffee",
+  #     "num_upcoming_shows": 1,
+  #   }]
+  # }, {
+  #   "city": "New York",
+  #   "state": "NY",
+  #   "venues": [{
+  #     "id": 2,
+  #     "name": "The Dueling Pianos Bar",
+  #     "num_upcoming_shows": 0,
+  #   }]
+  # }]
   return render_template('pages/venues.html', areas=data);
 
 @app.route('/venues/search', methods=['POST'])
