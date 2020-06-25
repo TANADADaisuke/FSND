@@ -375,7 +375,7 @@ def show_artist(artist_id):
   image_link = artist.image_link
   data['image_link'] = image_link
   # shows query
-  shows = Show.query.filter(Show.artist_id == artist_id)
+  shows = Show.query.join(Show.venue).filter(Show.artist_id == artist_id)
   past_shows = shows.filter(Show.time < datetime.utcnow())
   upcoming_shows = shows.filter(Show.time >= datetime.utcnow())
   data['past_shows_count'] = past_shows.count()
@@ -385,9 +385,8 @@ def show_artist(artist_id):
   for past_show in past_shows:
     past_show_item = {}
     venue_id = past_show.venue_id
-    venue = Venue.query.get(venue_id)
-    venue_name = venue.name
-    venue_image_link = venue.image_link
+    venue_name = past_show.venue.name
+    venue_image_link = past_show.venue.image_link
     start_time = past_show.time
     past_show_item['venue_id'] = venue_id
     past_show_item['venue_name'] = venue_name
@@ -398,9 +397,8 @@ def show_artist(artist_id):
   for upcoming_show in upcoming_shows:
     upcoming_show_item = {}
     venue_id = upcoming_show.venue_id
-    venue = Venue.query.get(venue_id)
-    venue_name = venue.name
-    venue_image_link = venue.image_link
+    venue_name = upcoming_show.venue.name
+    venue_image_link = upcoming_show.venue.image_link
     start_time = upcoming_show.time
     upcoming_show_item['venue_id'] = venue_id
     upcoming_show_item['venue_name'] = venue_name
