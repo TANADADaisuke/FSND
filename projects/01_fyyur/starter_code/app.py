@@ -181,8 +181,8 @@ def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id -> DONE.
   venue = Venue.query.get(venue_id)
-  data = {}
   # query venue data
+  data = {}
   id = venue.id
   name = venue.name
   genres = venue.genres
@@ -208,11 +208,12 @@ def show_venue(venue_id):
   image_link = venue.image_link
   data['image_link'] = image_link
   # query shows data
-  shows = Show.query.filter(Show.venue_id == venue_id)
+  shows = Show.query.join(Show.artist).filter(Show.venue_id == venue_id)
   past_show_list = []
   upcoming_show_list = []
   past_shows = shows.filter(Show.time < datetime.utcnow())
   past_shows_count = past_shows.count()
+  # print(type(past_shows), len(past_shows))
   upcoming_shows = shows.filter(Show.time >= datetime.utcnow())
   upcoming_shows_count = upcoming_shows.count()
   data['past_shows_count'] = past_shows_count
@@ -220,9 +221,8 @@ def show_venue(venue_id):
   for past_show in past_shows:
     past_show_item = {}
     artist_id = past_show.artist_id
-    artist = Artist.query.get(artist_id)
-    artist_name = artist.name
-    artist_image_link = artist.image_link
+    artist_name = past_show.artist.name
+    artist_image_link = past_show.artist.image_link
     start_time = past_show.time
     past_show_item['artist_id'] = artist_id
     past_show_item['artist_name'] = artist_name
@@ -233,9 +233,8 @@ def show_venue(venue_id):
   for upcoming_show in upcoming_shows:
     upcoming_show_item = {}
     artist_id = upcoming_show.artist_id
-    artist = Artist.query.get(artist_id)
-    artist_name = artist.name
-    artist_image_link = artist.image_link
+    artist_name = upcoming_show.artist.name
+    artist_image_link = upcoming_show.artist.image_link
     start_time = upcoming_show.time
     upcoming_show_item['artist_id'] = artist_id
     upcoming_show_item['artist_name'] = artist_name
