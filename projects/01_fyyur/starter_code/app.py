@@ -428,7 +428,34 @@ def edit_artist(artist_id):
 def edit_artist_submission(artist_id):
   # TODO: take values from the form submitted, and update existing
   # artist record with ID <artist_id> using the new attributes
-
+  error = False
+  try:
+    # get submission date from form
+    submission_data = ArtistForm(request.form)
+    name = submission_data.name.data
+    city = submission_data.city.data
+    state = submission_data.state.data
+    phone = submission_data.phone.data
+    genres = submission_data.genres.data
+    facebook_link = submission_data.facebook_link.data
+    # update artist values
+    artist = Artist.query.get(artist_id)
+    artist.name = name
+    artist.city = city
+    artist.state = state
+    artist.phone = phone
+    artist.genres = genres
+    artist.facebook_link = facebook_link
+    db.session.commit()
+  except:
+    db.session.rollback()
+    error = True
+  finally:
+    db.session.close()
+  if not error:
+    flash('Artist ' + request.form['name'] + ' was successfully updated!')
+  else:
+    flash('An error occurred. Artist ' + request.form['name'] + ' could not be updated.')
   return redirect(url_for('show_artist', artist_id=artist_id))
 
 @app.route('/venues/<int:venue_id>/edit', methods=['GET'])
