@@ -428,6 +428,7 @@ def edit_artist(artist_id):
 def edit_artist_submission(artist_id):
   # TODO: take values from the form submitted, and update existing
   # artist record with ID <artist_id> using the new attributes
+  # -> DONE
   error = False
   try:
     # get submission date from form
