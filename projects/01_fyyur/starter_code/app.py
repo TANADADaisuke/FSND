@@ -479,8 +479,8 @@ def edit_venue_submission(venue_id):
   # venue record with ID <venue_id> using the new attributes
   # -> DONE
   error = False
-  # get submission data from Venue form
   try:
+    # get submission data from Venue form
     submission_data = VenueForm(request.form)
     name = submission_data.name.data
     city = submission_data.city.data
@@ -489,13 +489,6 @@ def edit_venue_submission(venue_id):
     phone = submission_data.phone.data
     genres = submission_data.genres.data
     facebook_link = submission_data.facebook_link.data
-    print('name:', name)
-    print('city:', city)
-    print('state:', state)
-    print('address:', address)
-    print('phone:', phone)
-    print('genres:', genres)
-    print('facebook_link:', facebook_link)
     # update venue values
     venue = Venue.query.get(venue_id)
     venue.name = name
