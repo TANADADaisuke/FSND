@@ -285,7 +285,6 @@ def create_venue_submission():
     error = True
   finally:
     db.session.close()
-    pass
   if not error:
     # on successful db insert, flash success
     flash('Venue ' + request.form['name'] + ' was successfully listed!')
