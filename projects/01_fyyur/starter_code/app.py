@@ -302,6 +302,10 @@ def delete_venue(venue_id):
   error = False
   try:
     venue = Venue.query.get(venue_id)
+    # delete related shows
+    shows = Show.query.filter(Show.venue_id == venue_id)
+    shows.delete()
+    # delete the venue
     db.session.delete(venue)
     db.session.commit()
     flash('Venue ' + venue.name + ' was successfully deleted!')
