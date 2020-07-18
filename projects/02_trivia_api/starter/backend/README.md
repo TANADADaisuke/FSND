@@ -58,6 +58,11 @@ Setting the `FLASK_ENV` variable to `development` will detect file changes and r
 
 Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` directory and the `__init__.py` file to find the application. 
 
+- Base URL: At present this app can only be run locally and is not hosted as a base URL. The backend app is hosted at the default,
+'http://127.0.0.1:5000/books',
+which is set as a proxy in the frontend configuration.
+- Authentication: This version of the application does not require authentication of API keys.
+
 ## Tasks
 
 One note before you delve into your tasks: for each endpoint you are expected to define the endpoint and response data. The frontend will be a plentiful resource because it is set up to expect certain endpoints and response data formats already. You should feel free to specify endpoints in your own way; if you do so, make sure to update the frontend or you will get some unexpected behavior. 
