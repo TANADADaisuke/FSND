@@ -1,5 +1,11 @@
 # Full Stack Trivia API Backend
 
+## Intrudoction
+
+Udacity is invested in creating bonding experiences for its employees and students. A bunch of team members got the idea to hold trivia on a regular basis and created a webpage to manage the trivia app and play the game. 
+
+This API holds a bunh of trivia, get a list of trivia questions, add new question, delete them, and play the actual trivia game. see who's the most knowledgeable of the bunch.
+
 ## Getting Started
 
 ### Installing Dependencies
