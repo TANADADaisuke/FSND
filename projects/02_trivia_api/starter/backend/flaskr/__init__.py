@@ -18,6 +18,16 @@ def create_app(test_config=None):
   '''
   cors = CORS(app, resource={r'*/api/*': '*'})
 
+  def paginate_questions(request, selection):
+    page = request.args.get('page', 1, type=int)
+    start = (page - 1) * QUESTIONS_PER_PAGE
+    end = start + QUESTIONS_PER_PAGE
+
+    questions = [question.format() for question in selections]
+    current_questions = questions[start: end] 
+    
+    return current_questions
+
   '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
   '''
@@ -37,7 +47,7 @@ def create_app(test_config=None):
   def retrieve_categories():
     selection = Category.query.all()
     categories = [category.format() for category in selection]
-    
+
     return jsonify({
       'success': True,
       'categories': categories,
