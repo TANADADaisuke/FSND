@@ -33,6 +33,17 @@ class TriviaTestCase(unittest.TestCase):
     TODO
     Write at least one test for each test for successful operation and for expected errors.
     """
+    # test for retrieving all available categories
+    def test_retrieve_categories(self):
+        '''Test retrieving all available categories'''
+        res = self.client().get('/categories')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['total_categories'], 6)
+        self.assertEqual(len(data['categories']), 6)
+
 
 
 # Make the tests conveniently executable
