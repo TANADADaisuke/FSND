@@ -44,6 +44,18 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['total_categories'], 6)
         self.assertEqual(len(data['categories']), 6)
 
+    # test for retrieving paginated questions
+    def test_retrieve_questions(self):
+        '''Test retrieving paginated questions'''
+        res = self.client().get('/questions')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(len(data['current_questions']), 10)
+        self.assertEqual(data['total_questions'], 19)
+        self.assertTrue(data['current_category'])
+        self.assertEqual(len(data['categories']), 6)
 
 
 # Make the tests conveniently executable
