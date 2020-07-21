@@ -57,6 +57,18 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['current_category'])
         self.assertEqual(len(data['categories']), 6)
 
+    # test 404 for retrieving over page questions
+    def test_404_for_overpage_questions(self):
+        '''Test 404 for overpage questions'''
+        page = 100000
+        res = self.client().get('/questions?page={}'.format(page))
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['error'], 404)
+        self.assertEqual(data['message'], 'not found')
+
     # test for delete the question
     def test_delete_question(self):
         '''Test deleting the question using question id'''
