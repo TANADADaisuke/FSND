@@ -23,7 +23,7 @@ def create_app(test_config=None):
     start = (page - 1) * QUESTIONS_PER_PAGE
     end = start + QUESTIONS_PER_PAGE
 
-    questions = [question.format() for question in selections]
+    questions = [question.format() for question in selection]
     current_questions = questions[start: end] 
     
     return current_questions
@@ -69,12 +69,17 @@ def create_app(test_config=None):
   '''
   @app.route('/questions')
   def retrieve_questions():
-    selection = Question.query.order_by(Question.id).all()
-    current_questions = paginate_questions(request, selection)
+    questions = Question.query.order_by(Question.id).all()
+    current_questions = paginate_questions(request, questions)
+
+    selection = Category.query.order_by(Category.id).all()
+    current_category_id = request.args.get('category_id', 1, type=int)
+    current_category = Category.query.filter(Category.id == current_category_id).one_or_none().format()
+    categories = [category.format() for category in selection]
 
     return jsonify({
       'success': True,
-      'questions': current_questions,
+      'current_questions': current_questions,
       'total_questions': len(questions),
       'current_category': current_category,
       'categories': categories
