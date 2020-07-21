@@ -57,6 +57,32 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['current_category'])
         self.assertEqual(len(data['categories']), 6)
 
+    # test for delete the question
+    def test_delete_question(self):
+        '''Test deleting the question using question id'''
+        delete_id = 5
+        res = self.client().delete('/question/{}'.format(delete_id))
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['deleted'], delete_id)
+        self.assertEqual(len(data['current_questions']), 10)
+        self.assertEqual(data['total_questions'], 18)
+        self.assertTrue(data['current_category'])
+        self.assertEqual(len(data['categories']), 6)
+
+    # test 422 for delete against nonexist question
+    def test_422_for_delete_against_nonexist_question(self):
+        '''Test 422 for delete againse nonexist question'''
+        delete_id = 100000
+        res = self.client().delete('/questions/{}'.format(delete_id))
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['error'], 422)
+        self.assertEqual(data['message'], 'umprocessable')
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
