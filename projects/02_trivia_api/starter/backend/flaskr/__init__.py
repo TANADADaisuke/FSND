@@ -6,6 +6,8 @@ import random
 
 from models import setup_db, Question, Category
 
+import sys
+
 QUESTIONS_PER_PAGE = 10
 
 def create_app(test_config=None):
@@ -81,13 +83,13 @@ def create_app(test_config=None):
 
     selection = Category.query.order_by(Category.id).all()
     categories = [category.format() for category in selection]
-    current_category = current_category(request)
+    category = current_category(request)
 
     return jsonify({
       'success': True,
       'current_questions': current_questions,
       'total_questions': len(questions),
-      'current_category': current_category,
+      'current_category': category,
       'categories': categories
     })
 
@@ -100,24 +102,34 @@ def create_app(test_config=None):
   '''
   @app.route('/questions/<int:question_id>')
   def delete_question(question_id):
-    question = Question.query.get(question_id)
-    question.delete()
+    print('test')
+    try:
+      question = Question.query.get(question_id)
+      if question in None:
+        abort(422)
+      
+      question.delete()
 
-    questions = Question.query.order_by(Question.id).all()
-    current_questions = paginate_questions(request, questions)
+      questions = Question.query.order_by(Question.id).all()
+      current_questions = paginate_questions(request, questions)
 
-    selection = Category.query.order_by(Category.id).all()
-    categories = [category.format() for category in selection]
-    current_category = current_category(request)
- 
-    return jsonify({
-      'success': True,
-      'deleted': question_id
-      'current_questions': current_questions,
-      'total_questions': len(questions),
-      'current_category': current_category,
-      'categories': categories
-    })
+      selection = Category.query.order_by(Category.id).all()
+      categories = [category.format() for category in selection]
+      current_category = current_category(request)
+  
+      print("hello")
+
+      return jsonify({
+        'success': True,
+        'deleted': question_id,
+        'current_questions': current_questions,
+        'total_questions': len(questions),
+        'current_category': current_category,
+        'categories': categories
+      })
+    except:
+      print(sys.exc_info)
+      abort(422)
 
   '''
   @TODO: 
