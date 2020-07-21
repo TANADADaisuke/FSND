@@ -177,5 +177,13 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
+  @app.errorhandler(422)
+  def umprocessable(error):
+    return jsonify({
+      'success': False,
+      'error': 422,
+      'message': 'umprocessable'
+    }), 422
+
 
   return app
