@@ -28,6 +28,13 @@ def create_app(test_config=None):
     
     return current_questions
 
+  def current_category(request):
+    category_id = request.args.get('category', 1, type=int)
+    selection = Category.query.get(category_id)
+    category = selection.format()
+
+    return category
+  
   '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
   '''
@@ -73,9 +80,8 @@ def create_app(test_config=None):
     current_questions = paginate_questions(request, questions)
 
     selection = Category.query.order_by(Category.id).all()
-    current_category_id = request.args.get('category_id', 1, type=int)
-    current_category = Category.query.filter(Category.id == current_category_id).one_or_none().format()
     categories = [category.format() for category in selection]
+    current_category = current_category(request)
 
     return jsonify({
       'success': True,
@@ -101,10 +107,9 @@ def create_app(test_config=None):
     current_questions = paginate_questions(request, questions)
 
     selection = Category.query.order_by(Category.id).all()
-    current_category_id = request.args.get('category_id', 1, type=int)
-    current_category = Category.query.filter(Category.id == current_category_id).one_or_none().format()
     categories = [category.format() for category in selection]
-
+    current_category = current_category(request)
+ 
     return jsonify({
       'success': True,
       'deleted': question_id
