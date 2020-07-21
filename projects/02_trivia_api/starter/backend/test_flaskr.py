@@ -84,6 +84,26 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['error'], 422)
         self.assertEqual(data['message'], 'umprocessable')
 
+    # test creating a new question
+    def test_create_question(self):
+        res = self.client().post(
+            '/question', 
+            json={
+                'question': 'test question',
+                'answer': 'test answer',
+                'category': 4,
+                'difficulty': 5
+            })
+        data = json.loads(res.data)
+
+        self.assertEqual(res.statuc_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(len(data['current_questions']), 10)
+        self.assertEqual(data['total_questions'], 18)
+        self.assertTrue(data['current_category'])
+        self.assertEqual(len(data['categories']), 6)
+
+
 # Make the tests conveniently executable
 if __name__ == "__main__":
     unittest.main()
