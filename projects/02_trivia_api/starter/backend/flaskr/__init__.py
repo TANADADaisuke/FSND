@@ -90,17 +90,21 @@ def create_app(test_config=None):
     questions = Question.query.order_by(Question.id).all()
     current_questions = paginate_questions(request, questions)
 
-    selection = Category.query.order_by(Category.id).all()
-    categories = response_categories()
-    category = current_category(request)
+    if len(current_questions) == 0:
+      abort(404)
+    
+    else:
+      selection = Category.query.order_by(Category.id).all()
+      categories = response_categories()
+      category = current_category(request)
 
-    return jsonify({
-      'success': True,
-      'questions': current_questions,
-      'total_questions': len(questions),
-      'current_category': category,
-      'categories': categories
-    })
+      return jsonify({
+        'success': True,
+        'questions': current_questions,
+        'total_questions': len(questions),
+        'current_category': category,
+        'categories': categories
+      })
 
   '''
   @TODO: 
@@ -192,6 +196,14 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
+  @app.errorhandler(404)
+  def not_found(error):
+    return jsonify({
+      'success': False,
+      'error': 404,
+      'message': 'not found'
+    }), 404
+
   @app.errorhandler(422)
   def umprocessable(error):
     return jsonify({
