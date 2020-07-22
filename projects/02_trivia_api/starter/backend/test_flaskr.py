@@ -131,6 +131,19 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['error'], 422)
         self.assertEqual(data['message'], 'umprocessable')
+    
+    # test searching questions based on a search term
+    def test_search_questions(self):
+        res = self.client().post('/questions', json={'search': what})
+        data = json.load(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(len(data['questions']), 8)
+        self.assertEqual(data['total_questions'], 8)
+        self.assertTrue(data['current_category'])
+        self.assertEqual(len(data['categories']), 6)
+
 
 
 # Make the tests conveniently executable
