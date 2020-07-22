@@ -126,7 +126,7 @@ def create_app(test_config=None):
       current_questions = paginate_questions(request, questions)
 
       selection = Category.query.order_by(Category.id).all()
-      categories = [category.format() for category in selection]
+      categories = response_categories()
       category = current_category(request)
 
       return jsonify({
@@ -155,35 +155,53 @@ def create_app(test_config=None):
   def create_question():
     try:
       body = request.get_json()
-      new_question = body['question']
-      new_answer = body['answer']
-      new_category = body['category']
-      new_difficulty = body['difficulty']
-      question = Question(
-        question=new_question,
-        answer=new_answer,
-        category=new_category,
-        difficulty=new_difficulty
-      )
-      question.insert()
+      search = body.get('search', None)
+      if search:
+        questions = Question.query.filter(Question.question.ilike('%{}%'.format(search))).order_by(Question.id).all()
+        current_questions = paginate_questions(request, questions)
 
-      questions = Question.query.order_by(Question.id).all()
-      current_questions = paginate_questions(request, questions)
+        selection = Category.query.order_by(Category.id).all()
+        categories = response_categories()
+        category = current_category(request)
 
-      selection = Category.query.order_by(Category.id).all()
-      categories = [category.format() for category in selection]
-      category = current_category(request)
+        return jsonify({
+          'success': True,
+          'questions': current_questions,
+          'total_questions': len(questions),
+          'current_category': category,
+          'categories': categories
+        })
+      else:
+        new_question = body['question']
+        new_answer = body['answer']
+        new_category = body['category']
+        new_difficulty = body['difficulty']
+        question = Question(
+          question=new_question,
+          answer=new_answer,
+          category=new_category,
+          difficulty=new_difficulty
+        )
+        question.insert()
+
+        questions = Question.query.order_by(Question.id).all()
+        current_questions = paginate_questions(request, questions)
+
+        selection = Category.query.order_by(Category.id).all()
+        categories = response_categories()
+        category = current_category(request)
 
 
-      return jsonify({
-        'success': True,
-        'created': question.id,
-        'questions': current_questions,
-        'total_questions': len(questions),
-        'current_category': category,
-        'categories': categories
-      })
+        return jsonify({
+          'success': True,
+          'created': question.id,
+          'questions': current_questions,
+          'total_questions': len(questions),
+          'current_category': category,
+          'categories': categories
+        })
     except:
+      print(sys.exc_info())
       abort(422)
 
   '''
