@@ -144,7 +144,29 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['current_category'])
         self.assertEqual(len(data['categories']), 6)
 
+    # test retrieving question accourding to their categories
+    def test_retrieve_questions_by_category(self):
+        category_id = 1
+        res = self.client().get('/categories/{}/questions'.format(category_id))
+        data = json.loads(res.data)
 
+        self.assertEqual(res.status_code, 200)
+        self.assertEquql(data['success'], True)
+        self.assertEqual(len(data['questions']), 3)
+        self.assertEqual(data['total_questions'], 3)
+        self.assertEqaul(data['current_category'], 1)
+        self.assertEqual(len(data['categories']), 6)
+    
+    # test 404 for nonextist category
+    def test_404_for_nonexist_category(self):
+        category_id = 100000
+        res = self.client().get('/categories/{}/questions'.format(category_id))
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['error'], 404)
+        self.assertEqual(data['message'], 'not found')
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
