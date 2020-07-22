@@ -99,7 +99,7 @@ class TriviaTestCase(unittest.TestCase):
     # test creating a new question
     def test_create_question(self):
         res = self.client().post(
-            '/question', 
+            '/questions', 
             json={
                 'question': 'test question',
                 'answer': 'test answer',
