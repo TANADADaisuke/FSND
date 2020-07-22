@@ -18,7 +18,7 @@ def create_app(test_config=None):
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
-  cors = CORS(app, resource={r'*/api/*': '*'})
+  cors = CORS(app, resource={r'*': '*'})
 
   def paginate_questions(request, selection):
     page = request.args.get('page', 1, type=int)
@@ -37,6 +37,15 @@ def create_app(test_config=None):
 
     return category
   
+  def response_categories():
+    selection = Category.query.all()
+    categories = [category.format() for category in selection]
+    response = {}
+    for category in categories:
+      response[category['id']] = category['type']
+
+    return response
+
   '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
   '''
@@ -55,7 +64,7 @@ def create_app(test_config=None):
   @app.route('/categories')
   def retrieve_categories():
     selection = Category.query.all()
-    categories = [category.format() for category in selection]
+    categories = response_categories()
 
     return jsonify({
       'success': True,
@@ -82,12 +91,12 @@ def create_app(test_config=None):
     current_questions = paginate_questions(request, questions)
 
     selection = Category.query.order_by(Category.id).all()
-    categories = [category.format() for category in selection]
+    categories = response_categories()
     category = current_category(request)
 
     return jsonify({
       'success': True,
-      'current_questions': current_questions,
+      'questions': current_questions,
       'total_questions': len(questions),
       'current_category': category,
       'categories': categories
@@ -119,7 +128,7 @@ def create_app(test_config=None):
       return jsonify({
         'success': True,
         'deleted': question_id,
-        'current_questions': current_questions,
+        'questions': current_questions,
         'total_questions': len(questions),
         'current_category': category,
         'categories': categories
