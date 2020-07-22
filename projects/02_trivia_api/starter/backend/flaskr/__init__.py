@@ -153,10 +153,38 @@ def create_app(test_config=None):
   '''
   @app.route('/questions', methods=['POST'])
   def create_question():
+    try:
+      body = request.get_json()
+      new_question = body['question']
+      new_answer = body['answer']
+      new_category = body['category']
+      new_difficulty = body['difficulty']
+      question = Question(
+        question=new_question,
+        answer=new_answer,
+        category=new_category,
+        difficulty=new_difficulty
+      )
+      question.insert()
 
-    return jsonify({
-      'success', True,
-    })
+      questions = Question.query.order_by(Question.id).all()
+      current_questions = paginate_questions(request, questions)
+
+      selection = Category.query.order_by(Category.id).all()
+      categories = [category.format() for category in selection]
+      category = current_category(request)
+
+
+      return jsonify({
+        'success': True,
+        'created': question.id,
+        'questions': current_questions,
+        'total_questions': len(questions),
+        'current_category': category,
+        'categories': categories
+      })
+    except:
+      abort(422)
 
   '''
   @TODO: 

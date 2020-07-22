@@ -53,7 +53,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(len(data['questions']), 10)
-        self.assertEqual(data['total_questions'], 18)
+        self.assertEqual(data['total_questions'], 19)
         self.assertTrue(data['current_category'])
         self.assertEqual(len(data['categories']), 6)
 
@@ -80,7 +80,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertEqual(data['deleted'], delete_id)
         self.assertEqual(len(data['questions']), 10)
-        self.assertEqual(data['total_questions'], 18)
+        self.assertEqual(data['total_questions'], 19)
         self.assertTrue(data['current_category'])
         self.assertEqual(len(data['categories']), 6)
 
@@ -108,12 +108,29 @@ class TriviaTestCase(unittest.TestCase):
             })
         data = json.loads(res.data)
 
-        self.assertEqual(res.statuc_code, 200)
+        self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
+        self.assertTrue(data['created'])
         self.assertEqual(len(data['questions']), 10)
-        self.assertEqual(data['total_questions'], 18)
+        self.assertEqual(data['total_questions'], 20)
         self.assertTrue(data['current_category'])
         self.assertEqual(len(data['categories']), 6)
+
+    # test 422 for key less creation
+    def test_422_for_keyword_less_creation(self):
+        res = self.client().post(
+            '/questions', 
+            json={
+                'question': 'test question',
+                'category': 4,
+                'difficulty': 5
+            })
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['error'], 422)
+        self.assertEqual(data['message'], 'umprocessable')
 
 
 # Make the tests conveniently executable
