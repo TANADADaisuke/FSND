@@ -155,7 +155,7 @@ def create_app(test_config=None):
   def create_question():
     try:
       body = request.get_json()
-      search = body.get('search', None)
+      search = body.get('searchTerm', None)
       if search:
         questions = Question.query.filter(Question.question.ilike('%{}%'.format(search))).order_by(Question.id).all()
         current_questions = paginate_questions(request, questions)
