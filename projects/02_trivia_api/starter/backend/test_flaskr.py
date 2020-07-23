@@ -151,10 +151,10 @@ class TriviaTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
-        self.assertEquql(data['success'], True)
+        self.assertEqual(data['success'], True)
         self.assertEqual(len(data['questions']), 3)
         self.assertEqual(data['total_questions'], 3)
-        self.assertEqaul(data['current_category'], 1)
+        self.assertEqual(data['current_category']['id'], 1)
         self.assertEqual(len(data['categories']), 6)
     
     # test 404 for nonextist category
