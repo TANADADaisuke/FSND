@@ -171,7 +171,7 @@ class TriviaTestCase(unittest.TestCase):
     # test quizing
     def test_quiz(self):
         res = self.client().post(
-            '/quzzes',
+            '/quizzes',
             json={
                 'previous_questions': [],
                 'category': 1
@@ -181,8 +181,8 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(type(data['question'], dict)
-        self.assertEqual(data['current_category']['id'], 1)
+        self.assertEqual(type(data['question']), dict)
+        self.assertEqual(data['current_category'], 1)
 
     # test 405 for get method to retrieve quiz
     def test_405_for_get_method_against_quiz(self):
