@@ -168,6 +168,32 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['error'], 404)
         self.assertEqual(data['message'], 'not found')
 
+    # test quizing
+    def test_quiz(self):
+        res = self.client().post(
+            '/quzzes',
+            json={
+                'previous_questions': [],
+                'category': 1
+            }
+        )
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(type(data['question'], dict)
+        self.assertEqual(data['current_category']['id'], 1)
+
+    # test 405 for get method to retrieve quiz
+    def test_405_for_get_method_against_quiz(self):
+        res = self.client().get('/quizzes')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 405)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['error'], 405)
+        self.assertEqual(data['message'], 'method not allowed')
+
 # Make the tests conveniently executable
 if __name__ == "__main__":
     unittest.main()
