@@ -258,19 +258,23 @@ def create_app(test_config=None):
   def get_next_question():
     body = request.get_json()
     previous_questions = body.get('previous_questions', [])
-    category = body.get('category', None)
+    category = body.get('quiz_category', {'id': 0, 'type': 'click'})
+    print("*************************************************")
+    print("category", category)
 
-    if category is None:
+    if category['id'] == 0:
       selection = Question.query.all()
     else:
-      selection = Question.query.filter(Question.category == category).all()
+      selection = Question.query.filter(Question.category == category['id']).all()
 
     current_question = selection[0].format()
+    previous_questions.append(current_question)
 
     return jsonify({
       'success': True,
       'question': current_question,
-      'current_category': category
+      'current_category': category,
+      'previous_questions': previous_questions
     })
 
   '''
