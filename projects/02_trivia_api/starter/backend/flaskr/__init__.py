@@ -276,5 +276,13 @@ def create_app(test_config=None):
       'message': 'umprocessable'
     }), 422
 
+  @app.errorhandler(405)
+  def method_not_allowed(error):
+    return jsonify({
+      'success': False,
+      'error': 405,
+      'message': 'method not allowed'
+    }), 405
+
 
   return app
