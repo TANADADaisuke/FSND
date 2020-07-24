@@ -269,21 +269,23 @@ def create_app(test_config=None):
       selection = Question.query.filter(Question.category == category['id']).all()
 
     questions = [question.format() for question in selection]
-    selection_without_previous = []
-    for question in questions:
-      if question['id'] in previous_questions:
-        continue
-      else:
-        selection_without_previous.append(question)
-    
-    current_question = selection_without_previous[0]
-    previous_questions.append(current_question['id'])
+    if len(questions) == len(set(previous_questions)):
+      current_question = random.choice(questions)
+    else:
+      selection_without_previous = []
+      for question in questions:
+        if question['id'] in previous_questions:
+          continue
+        else:
+          selection_without_previous.append(question)
+      
+        current_question = random.choice(selection_without_previous)
 
     return jsonify({
       'success': True,
       'question': current_question,
       'current_category': category,
-      'previous_questions': previous_questions
+      # 'previous_questions': previous_questions
     })
 
   '''
