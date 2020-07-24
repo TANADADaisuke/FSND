@@ -261,14 +261,23 @@ def create_app(test_config=None):
     category = body.get('quiz_category', {'id': 0, 'type': 'click'})
     print("*************************************************")
     print("category", category)
+    print("previous questions", previous_questions)
 
     if category['id'] == 0:
       selection = Question.query.all()
     else:
       selection = Question.query.filter(Question.category == category['id']).all()
 
-    current_question = selection[0].format()
-    previous_questions.append(current_question)
+    questions = [question.format() for question in selection]
+    selection_without_previous = []
+    for question in questions:
+      if question['id'] in previous_questions:
+        continue
+      else:
+        selection_without_previous.append(question)
+    
+    current_question = selection_without_previous[0]
+    previous_questions.append(current_question['id'])
 
     return jsonify({
       'success': True,
