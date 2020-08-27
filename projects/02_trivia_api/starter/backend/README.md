@@ -452,6 +452,64 @@ One note before you delve into your tasks: for each endpoint you are expected to
   "success": true, 
   "total_questions": 4
 }
+'''
+
+### GET /categories/{category_id}/questions
+- General:
+  - Fetchs a list of questions which category match the given ID. Each question  containts id, question, answer, category, and difficulty. Also returns the number of questions in the given category, current category, and categories.
+  - Request Arguments: None
+  - Returns: An object with the following keys; questions, total questions, current _category, and categories.
+- Samples:
+  - Request: 'curl http://127.0.0.1:5000/categories/2/questions'
+  - Response: '''
+{
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "current_category": {
+    "id": 2, 
+    "type": "Art"
+  }, 
+  "questions": [
+    {
+      "answer": "Escher", 
+      "category": 2, 
+      "difficulty": 1, 
+      "id": 16, 
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    }, 
+    {
+      "answer": "Mona Lisa", 
+      "category": 2, 
+      "difficulty": 3, 
+      "id": 17, 
+      "question": "La Giaconda is better known as what?"
+    }, 
+    {
+      "answer": "One", 
+      "category": 2, 
+      "difficulty": 4, 
+      "id": 18, 
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    }, 
+    {
+      "answer": "Jackson Pollock", 
+      "category": 2, 
+      "difficulty": 2, 
+      "id": 19, 
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 4
+}
+'''
+
 
 REVIEW_COMMENT
 ```
