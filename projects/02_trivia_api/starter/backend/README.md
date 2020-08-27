@@ -82,7 +82,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 ### GET /categories
 - General:
-  - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+  - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category.
   - Request Arguments: None
   - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
 - Samples:
@@ -102,6 +102,113 @@ One note before you delve into your tasks: for each endpoint you are expected to
     }
     '''
 
+### GET /questions
+- General:
+  - Fetchs a list of all questions in which the each item containts id, question, answer, category, and difficulty. Also returns number of total questions, current category, and categories.
+  - Request Arguments: caterogy (optional)
+  - Returns: An object with the following keys; questions, total questions, current _category, and categories.
+- Samples:
+  - Request: 'curl http://127.0.0.1:5000/questions?category=2'
+  - Response: '''
+  {
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "current_category": {
+    "id": 2, 
+    "type": "Art"
+  }, 
+  "questions": [
+    {
+      "answer": "Apollo 13", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 2, 
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }, 
+    {
+      "answer": "Tom Cruise", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 4, 
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    }, 
+    {
+      "answer": "Maya Angelou", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 5, 
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    }, 
+    {
+      "answer": "Edward Scissorhands", 
+      "category": 5, 
+      "difficulty": 3, 
+      "id": 6, 
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }, 
+    {
+      "answer": "Muhammad Ali", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }, 
+    {
+      "answer": "Brazil", 
+      "category": 6, 
+      "difficulty": 3, 
+      "id": 10, 
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    }, 
+    {
+      "answer": "Uruguay", 
+      "category": 6, 
+      "difficulty": 4, 
+      "id": 11, 
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }, 
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }, 
+    {
+      "answer": "Lake Victoria", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 13, 
+      "question": "What is the largest lake in Africa?"
+    }, 
+    {
+      "answer": "The Palace of Versailles", 
+      "category": 3, 
+      "difficulty": 3, 
+      "id": 14, 
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 21
+}
+
+### DELETE /questions/{question_id}
+- General:
+  - Fetchs a list of all questions in which the each item containts id, question, answer, category, and difficulty. Also returns number of total questions, current category, and categories.
+  - Request Arguments: caterogy (optional)
+  - Returns: An object with the following keys; questions, total questions, current _category, and categories.
+- Samples:
+  - Request: 'curl http://127.0.0.1:5000/questions?category=2'
+  - Response: '''
+  {
+  "categories": {
 
 REVIEW_COMMENT
 ```
