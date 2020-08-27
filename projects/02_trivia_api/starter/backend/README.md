@@ -398,6 +398,61 @@ One note before you delve into your tasks: for each endpoint you are expected to
 }
 '''
 
+### POST /questions (with search term)
+- General:
+  - Searches questions based on the given search term.
+  - Request Arguments: search term
+  - Returns: An object of search result with the following keys:searched questions, success value, the number of searched questions, current _category, and categories.
+- Samples:
+  - Request: 'curl http://127.0.0.1:5000/questions -X POST -H "Content-Type:application/json" -d '{"searchTerm":"Who"}'
+  - Response: '''
+{
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "current_category": {
+    "id": 1, 
+    "type": "Science"
+  }, 
+  "questions": [
+    {
+      "answer": "Maya Angelou", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 5, 
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    }, 
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }, 
+    {
+      "answer": "Alexander Fleming", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 21, 
+      "question": "Who discovered penicillin?"
+    }, 
+    {
+      "answer": "Donald Tranp", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 24, 
+      "question": "Who is the president of the US?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 4
+}
+
 REVIEW_COMMENT
 ```
 This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
