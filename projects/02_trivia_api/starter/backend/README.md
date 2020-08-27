@@ -510,6 +510,30 @@ One note before you delve into your tasks: for each endpoint you are expected to
 }
 '''
 
+### POST /quizzes
+- General:
+  - Fetchs a question according to the given category and previous questions.
+  - Request Arguments: None
+  - Returns: An object with the following keys; question, success value, and current_category.
+- Samples:
+  - Request: 'curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type:application/json" -d '{"quiz_category":{"id":1, "type":"click"}, "previous_questions":[5,10]}'
+  - Response: '''
+{
+  "current_category": {
+    "id": 1, 
+    "type": "click"
+  }, 
+  "question": {
+    "answer": "Alexander Fleming", 
+    "category": 1, 
+    "difficulty": 3, 
+    "id": 21, 
+    "question": "Who discovered penicillin?"
+  }, 
+  "success": true
+}
+'''
+
 
 REVIEW_COMMENT
 ```
