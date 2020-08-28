@@ -100,7 +100,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
     "success": true, 
     "total_categories": 6
     }
-    '''
+  '''
 
 ### GET /questions
 - General:
@@ -110,95 +110,95 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - Samples:
   - Request: 'curl http://127.0.0.1:5000/questions?category=2'
   - Response: '''
-  {
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "current_category": {
-    "id": 2, 
-    "type": "Art"
-  }, 
-  "questions": [
     {
-      "answer": "Apollo 13", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 2, 
-      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    "categories": {
+        "1": "Science", 
+        "2": "Art", 
+        "3": "Geography", 
+        "4": "History", 
+        "5": "Entertainment", 
+        "6": "Sports"
     }, 
-    {
-      "answer": "Tom Cruise", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 4, 
-      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    "current_category": {
+        "id": 2, 
+        "type": "Art"
     }, 
-    {
-      "answer": "Maya Angelou", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 5, 
-      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-    }, 
-    {
-      "answer": "Edward Scissorhands", 
-      "category": 5, 
-      "difficulty": 3, 
-      "id": 6, 
-      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-    }, 
-    {
-      "answer": "Muhammad Ali", 
-      "category": 4, 
-      "difficulty": 1, 
-      "id": 9, 
-      "question": "What boxer's original name is Cassius Clay?"
-    }, 
-    {
-      "answer": "Brazil", 
-      "category": 6, 
-      "difficulty": 3, 
-      "id": 10, 
-      "question": "Which is the only team to play in every soccer World Cup tournament?"
-    }, 
-    {
-      "answer": "Uruguay", 
-      "category": 6, 
-      "difficulty": 4, 
-      "id": 11, 
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    }, 
-    {
-      "answer": "George Washington Carver", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 12, 
-      "question": "Who invented Peanut Butter?"
-    }, 
-    {
-      "answer": "Lake Victoria", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 13, 
-      "question": "What is the largest lake in Africa?"
-    }, 
-    {
-      "answer": "The Palace of Versailles", 
-      "category": 3, 
-      "difficulty": 3, 
-      "id": 14, 
-      "question": "In which royal palace would you find the Hall of Mirrors?"
+    "questions": [
+        {
+        "answer": "Apollo 13", 
+        "category": 5, 
+        "difficulty": 4, 
+        "id": 2, 
+        "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+        }, 
+        {
+        "answer": "Tom Cruise", 
+        "category": 5, 
+        "difficulty": 4, 
+        "id": 4, 
+        "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+        }, 
+        {
+        "answer": "Maya Angelou", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 5, 
+        "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+        }, 
+        {
+        "answer": "Edward Scissorhands", 
+        "category": 5, 
+        "difficulty": 3, 
+        "id": 6, 
+        "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+        }, 
+        {
+        "answer": "Muhammad Ali", 
+        "category": 4, 
+        "difficulty": 1, 
+        "id": 9, 
+        "question": "What boxer's original name is Cassius Clay?"
+        }, 
+        {
+        "answer": "Brazil", 
+        "category": 6, 
+        "difficulty": 3, 
+        "id": 10, 
+        "question": "Which is the only team to play in every soccer World Cup tournament?"
+        }, 
+        {
+        "answer": "Uruguay", 
+        "category": 6, 
+        "difficulty": 4, 
+        "id": 11, 
+        "question": "Which country won the first ever soccer World Cup in 1930?"
+        }, 
+        {
+        "answer": "George Washington Carver", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 12, 
+        "question": "Who invented Peanut Butter?"
+        }, 
+        {
+        "answer": "Lake Victoria", 
+        "category": 3, 
+        "difficulty": 2, 
+        "id": 13, 
+        "question": "What is the largest lake in Africa?"
+        }, 
+        {
+        "answer": "The Palace of Versailles", 
+        "category": 3, 
+        "difficulty": 3, 
+        "id": 14, 
+        "question": "In which royal palace would you find the Hall of Mirrors?"
+        }
+    ], 
+    "success": true, 
+    "total_questions": 21
     }
-  ], 
-  "success": true, 
-  "total_questions": 21
-}
-'''
+  '''
 
 ### DELETE /questions/{question_id}
 - General:
@@ -208,96 +208,96 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - Samples:
   - Request: 'curl http://127.0.0.1:5000/questions/10 -X DELETE'
   - Response: '''
-  {
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "current_category": {
-    "id": 1, 
-    "type": "Science"
-  }, 
-  "deleted": 10, 
-  "questions": [
     {
-      "answer": "Apollo 13", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 2, 
-      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    "categories": {
+        "1": "Science", 
+        "2": "Art", 
+        "3": "Geography", 
+        "4": "History", 
+        "5": "Entertainment", 
+        "6": "Sports"
     }, 
-    {
-      "answer": "Tom Cruise", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 4, 
-      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    "current_category": {
+        "id": 1, 
+        "type": "Science"
     }, 
-    {
-      "answer": "Maya Angelou", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 5, 
-      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-    }, 
-    {
-      "answer": "Edward Scissorhands", 
-      "category": 5, 
-      "difficulty": 3, 
-      "id": 6, 
-      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-    }, 
-    {
-      "answer": "Muhammad Ali", 
-      "category": 4, 
-      "difficulty": 1, 
-      "id": 9, 
-      "question": "What boxer's original name is Cassius Clay?"
-    }, 
-    {
-      "answer": "Uruguay", 
-      "category": 6, 
-      "difficulty": 4, 
-      "id": 11, 
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    }, 
-    {
-      "answer": "George Washington Carver", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 12, 
-      "question": "Who invented Peanut Butter?"
-    }, 
-    {
-      "answer": "Lake Victoria", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 13, 
-      "question": "What is the largest lake in Africa?"
-    }, 
-    {
-      "answer": "The Palace of Versailles", 
-      "category": 3, 
-      "difficulty": 3, 
-      "id": 14, 
-      "question": "In which royal palace would you find the Hall of Mirrors?"
-    }, 
-    {
-      "answer": "Agra", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 15, 
-      "question": "The Taj Mahal is located in which Indian city?"
+    "deleted": 10, 
+    "questions": [
+        {
+        "answer": "Apollo 13", 
+        "category": 5, 
+        "difficulty": 4, 
+        "id": 2, 
+        "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+        }, 
+        {
+        "answer": "Tom Cruise", 
+        "category": 5, 
+        "difficulty": 4, 
+        "id": 4, 
+        "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+        }, 
+        {
+        "answer": "Maya Angelou", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 5, 
+        "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+        }, 
+        {
+        "answer": "Edward Scissorhands", 
+        "category": 5, 
+        "difficulty": 3, 
+        "id": 6, 
+        "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+        }, 
+        {
+        "answer": "Muhammad Ali", 
+        "category": 4, 
+        "difficulty": 1, 
+        "id": 9, 
+        "question": "What boxer's original name is Cassius Clay?"
+        }, 
+        {
+        "answer": "Uruguay", 
+        "category": 6, 
+        "difficulty": 4, 
+        "id": 11, 
+        "question": "Which country won the first ever soccer World Cup in 1930?"
+        }, 
+        {
+        "answer": "George Washington Carver", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 12, 
+        "question": "Who invented Peanut Butter?"
+        }, 
+        {
+        "answer": "Lake Victoria", 
+        "category": 3, 
+        "difficulty": 2, 
+        "id": 13, 
+        "question": "What is the largest lake in Africa?"
+        }, 
+        {
+        "answer": "The Palace of Versailles", 
+        "category": 3, 
+        "difficulty": 3, 
+        "id": 14, 
+        "question": "In which royal palace would you find the Hall of Mirrors?"
+        }, 
+        {
+        "answer": "Agra", 
+        "category": 3, 
+        "difficulty": 2, 
+        "id": 15, 
+        "question": "The Taj Mahal is located in which Indian city?"
+        }
+    ], 
+    "success": true, 
+    "total_questions": 20
     }
-  ], 
-  "success": true, 
-  "total_questions": 20
-}
-'''
+  '''
 
 ### POST /questions
 - General:
@@ -307,96 +307,96 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - Samples:
   - Request: 'curl http://127.0.0.1:5000/questions -X POST -H "Content-Type:application/json" -d '{"question":"Who is the president of the US?", "answer":"Donald Tranp", "category":"4", "difficulty":"1"}'
   - Response: '''
-{
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "created": 24, 
-  "current_category": {
-    "id": 1, 
-    "type": "Science"
-  }, 
-  "questions": [
     {
-      "answer": "Apollo 13", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 2, 
-      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    "categories": {
+        "1": "Science", 
+        "2": "Art", 
+        "3": "Geography", 
+        "4": "History", 
+        "5": "Entertainment", 
+        "6": "Sports"
     }, 
-    {
-      "answer": "Tom Cruise", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 4, 
-      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    "created": 24, 
+    "current_category": {
+        "id": 1, 
+        "type": "Science"
     }, 
-    {
-      "answer": "Maya Angelou", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 5, 
-      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-    }, 
-    {
-      "answer": "Edward Scissorhands", 
-      "category": 5, 
-      "difficulty": 3, 
-      "id": 6, 
-      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-    }, 
-    {
-      "answer": "Muhammad Ali", 
-      "category": 4, 
-      "difficulty": 1, 
-      "id": 9, 
-      "question": "What boxer's original name is Cassius Clay?"
-    }, 
-    {
-      "answer": "Brazil", 
-      "category": 6, 
-      "difficulty": 3, 
-      "id": 10, 
-      "question": "Which is the only team to play in every soccer World Cup tournament?"
-    }, 
-    {
-      "answer": "Uruguay", 
-      "category": 6, 
-      "difficulty": 4, 
-      "id": 11, 
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    }, 
-    {
-      "answer": "George Washington Carver", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 12, 
-      "question": "Who invented Peanut Butter?"
-    }, 
-    {
-      "answer": "Lake Victoria", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 13, 
-      "question": "What is the largest lake in Africa?"
-    }, 
-    {
-      "answer": "The Palace of Versailles", 
-      "category": 3, 
-      "difficulty": 3, 
-      "id": 14, 
-      "question": "In which royal palace would you find the Hall of Mirrors?"
+    "questions": [
+        {
+        "answer": "Apollo 13", 
+        "category": 5, 
+        "difficulty": 4, 
+        "id": 2, 
+        "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+        }, 
+        {
+        "answer": "Tom Cruise", 
+        "category": 5, 
+        "difficulty": 4, 
+        "id": 4, 
+        "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+        }, 
+        {
+        "answer": "Maya Angelou", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 5, 
+        "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+        }, 
+        {
+        "answer": "Edward Scissorhands", 
+        "category": 5, 
+        "difficulty": 3, 
+        "id": 6, 
+        "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+        }, 
+        {
+        "answer": "Muhammad Ali", 
+        "category": 4, 
+        "difficulty": 1, 
+        "id": 9, 
+        "question": "What boxer's original name is Cassius Clay?"
+        }, 
+        {
+        "answer": "Brazil", 
+        "category": 6, 
+        "difficulty": 3, 
+        "id": 10, 
+        "question": "Which is the only team to play in every soccer World Cup tournament?"
+        }, 
+        {
+        "answer": "Uruguay", 
+        "category": 6, 
+        "difficulty": 4, 
+        "id": 11, 
+        "question": "Which country won the first ever soccer World Cup in 1930?"
+        }, 
+        {
+        "answer": "George Washington Carver", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 12, 
+        "question": "Who invented Peanut Butter?"
+        }, 
+        {
+        "answer": "Lake Victoria", 
+        "category": 3, 
+        "difficulty": 2, 
+        "id": 13, 
+        "question": "What is the largest lake in Africa?"
+        }, 
+        {
+        "answer": "The Palace of Versailles", 
+        "category": 3, 
+        "difficulty": 3, 
+        "id": 14, 
+        "question": "In which royal palace would you find the Hall of Mirrors?"
+        }
+    ], 
+    "success": true, 
+    "total_questions": 20
     }
-  ], 
-  "success": true, 
-  "total_questions": 20
-}
-'''
+  '''
 
 ### POST /questions (with search term)
 - General:
@@ -406,53 +406,53 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - Samples:
   - Request: 'curl http://127.0.0.1:5000/questions -X POST -H "Content-Type:application/json" -d '{"searchTerm":"Who"}'
   - Response: '''
-{
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "current_category": {
-    "id": 1, 
-    "type": "Science"
-  }, 
-  "questions": [
     {
-      "answer": "Maya Angelou", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 5, 
-      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    "categories": {
+        "1": "Science", 
+        "2": "Art", 
+        "3": "Geography", 
+        "4": "History", 
+        "5": "Entertainment", 
+        "6": "Sports"
     }, 
-    {
-      "answer": "George Washington Carver", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 12, 
-      "question": "Who invented Peanut Butter?"
+    "current_category": {
+        "id": 1, 
+        "type": "Science"
     }, 
-    {
-      "answer": "Alexander Fleming", 
-      "category": 1, 
-      "difficulty": 3, 
-      "id": 21, 
-      "question": "Who discovered penicillin?"
-    }, 
-    {
-      "answer": "Donald Tranp", 
-      "category": 4, 
-      "difficulty": 1, 
-      "id": 24, 
-      "question": "Who is the president of the US?"
+    "questions": [
+        {
+        "answer": "Maya Angelou", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 5, 
+        "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+        }, 
+        {
+        "answer": "George Washington Carver", 
+        "category": 4, 
+        "difficulty": 2, 
+        "id": 12, 
+        "question": "Who invented Peanut Butter?"
+        }, 
+        {
+        "answer": "Alexander Fleming", 
+        "category": 1, 
+        "difficulty": 3, 
+        "id": 21, 
+        "question": "Who discovered penicillin?"
+        }, 
+        {
+        "answer": "Donald Tranp", 
+        "category": 4, 
+        "difficulty": 1, 
+        "id": 24, 
+        "question": "Who is the president of the US?"
+        }
+    ], 
+    "success": true, 
+    "total_questions": 4
     }
-  ], 
-  "success": true, 
-  "total_questions": 4
-}
-'''
+  '''
 
 ### GET /categories/{category_id}/questions
 - General:
@@ -462,53 +462,53 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - Samples:
   - Request: 'curl http://127.0.0.1:5000/categories/2/questions'
   - Response: '''
-{
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "current_category": {
-    "id": 2, 
-    "type": "Art"
-  }, 
-  "questions": [
     {
-      "answer": "Escher", 
-      "category": 2, 
-      "difficulty": 1, 
-      "id": 16, 
-      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    "categories": {
+        "1": "Science", 
+        "2": "Art", 
+        "3": "Geography", 
+        "4": "History", 
+        "5": "Entertainment", 
+        "6": "Sports"
     }, 
-    {
-      "answer": "Mona Lisa", 
-      "category": 2, 
-      "difficulty": 3, 
-      "id": 17, 
-      "question": "La Giaconda is better known as what?"
+    "current_category": {
+        "id": 2, 
+        "type": "Art"
     }, 
-    {
-      "answer": "One", 
-      "category": 2, 
-      "difficulty": 4, 
-      "id": 18, 
-      "question": "How many paintings did Van Gogh sell in his lifetime?"
-    }, 
-    {
-      "answer": "Jackson Pollock", 
-      "category": 2, 
-      "difficulty": 2, 
-      "id": 19, 
-      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    "questions": [
+        {
+        "answer": "Escher", 
+        "category": 2, 
+        "difficulty": 1, 
+        "id": 16, 
+        "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+        }, 
+        {
+        "answer": "Mona Lisa", 
+        "category": 2, 
+        "difficulty": 3, 
+        "id": 17, 
+        "question": "La Giaconda is better known as what?"
+        }, 
+        {
+        "answer": "One", 
+        "category": 2, 
+        "difficulty": 4, 
+        "id": 18, 
+        "question": "How many paintings did Van Gogh sell in his lifetime?"
+        }, 
+        {
+        "answer": "Jackson Pollock", 
+        "category": 2, 
+        "difficulty": 2, 
+        "id": 19, 
+        "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+        }
+    ], 
+    "success": true, 
+    "total_questions": 4
     }
-  ], 
-  "success": true, 
-  "total_questions": 4
-}
-'''
+  '''
 
 ### POST /quizzes
 - General:
@@ -518,35 +518,21 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - Samples:
   - Request: 'curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type:application/json" -d '{"quiz_category":{"id":1, "type":"click"}, "previous_questions":[5,10]}'
   - Response: '''
-{
-  "current_category": {
-    "id": 1, 
-    "type": "click"
-  }, 
-  "question": {
-    "answer": "Alexander Fleming", 
-    "category": 1, 
-    "difficulty": 3, 
-    "id": 21, 
-    "question": "Who discovered penicillin?"
-  }, 
-  "success": true
-}
-'''
-
-
-REVIEW_COMMENT
-```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
-
-Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
-
-
-```
+    {
+    "current_category": {
+        "id": 1, 
+        "type": "click"
+    }, 
+    "question": {
+        "answer": "Alexander Fleming", 
+        "category": 1, 
+        "difficulty": 3, 
+        "id": 21, 
+        "question": "Who discovered penicillin?"
+    }, 
+    "success": true
+    }
+  '''
 
 
 ## Testing
