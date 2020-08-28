@@ -259,9 +259,6 @@ def create_app(test_config=None):
     body = request.get_json()
     previous_questions = body.get('previous_questions', [])
     category = body.get('quiz_category', {'id': 0, 'type': 'click'})
-    print("*************************************************")
-    print("category", category)
-    print("previous questions", previous_questions)
 
     if category['id'] == 0:
       selection = Question.query.all()
@@ -285,7 +282,6 @@ def create_app(test_config=None):
       'success': True,
       'question': current_question,
       'current_category': category,
-      # 'previous_questions': previous_questions
     })
 
   '''
