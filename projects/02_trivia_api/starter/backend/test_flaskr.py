@@ -186,7 +186,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertEqual(type(data['question']), dict)
         self.assertEqual(data['current_category']['id'], 1)
-        self.assertEqual(len(data['previous_questions']), 1)
 
     # test 405 for get method to retrieve quiz
     def test_405_for_get_method_against_quiz(self):
