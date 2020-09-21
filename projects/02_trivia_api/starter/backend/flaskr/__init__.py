@@ -276,7 +276,7 @@ def create_app(test_config=None):
 
         questions = [question.format() for question in selection]
         if len(questions) == len(set(previous_questions)):
-            current_question = random.choice(questions)
+            current_question = False
         else:
             selection_without_previous = []
             for question in questions:
