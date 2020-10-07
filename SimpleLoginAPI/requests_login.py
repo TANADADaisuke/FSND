@@ -19,7 +19,7 @@ def try_password(password, print_all=False):
 try_password('kitten')
 # Load the NIST list of 10,000 most commonly used passwords (strings)
 with open('nist_10000.txt', newline='') as bad_passwords:
-    nist_bad = bad.passwords.read().split('\n')
+    nist_bad = bad_passwords.read().split('\n')
 # print(nist_bad[1:10])
 for password in nist_bad:
     success = try_password(password)

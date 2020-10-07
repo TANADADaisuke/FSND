@@ -4,7 +4,7 @@ app = Flask(__name__)
 # make a post request
 # it should include a json body
 # with a password parameter as a string
-@app.route('/login', methods=['POST']
+@app.route('/login', methods=['POST'])
 def headers():
     data = request.get_json()
     # invalid input format
@@ -19,7 +19,7 @@ def headers():
     # > we didn't want to make it easy for you to cheat;)
     digest = hashlib.md5(data['password'].encode()).hexdigest()
     # compare the password to the message digest
-    if digest == '2f3a4fccca6406e35bc33e92dd93135':
+    if digest == '2f3a4fccca6406e35bcf33e92dd93135':
         return 'ACCESS GRANTED'
     else:
         abort(401)
