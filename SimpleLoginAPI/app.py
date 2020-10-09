@@ -7,6 +7,7 @@ app = Flask(__name__)
 @app.route('/login', methods=['POST'])
 def headers():
     data = request.get_json()
+    print(request.headers)
     # invalid input format
     if 'password' not in data:
         abort(422)
