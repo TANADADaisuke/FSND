@@ -28,7 +28,6 @@ CORS(app)
         or appropriate status code indicating reason for failure
 '''
 @app.route('/drinks')
-# @requires_auth()
 def get_drinks():
     selection = Drink.query.all()
     drinks = []
@@ -48,7 +47,18 @@ def get_drinks():
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks-detail')
+@requires_auth('get:drinks-detail')
+def get_drinks_detail():
+    selection = Drink.query.all()
+    drinks = []
+    for drink in selection:
+        drinks.append(drink.long())
 
+    return jsonify({
+        'success': True,
+        'drinks': drinks
+    })
 
 '''
 @TODO implement endpoint
