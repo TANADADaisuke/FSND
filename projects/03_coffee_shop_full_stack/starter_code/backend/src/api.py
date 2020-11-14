@@ -72,21 +72,24 @@ def get_drinks_detail(payload):
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
 def create_new_drink(payload):
-    body = request.get_json()
-    title = body.get('title', None)
-    recipe = body.get('recipe', None)
+    try:
+        body = request.get_json()
+        title = body.get('title', None)
+        recipe = body.get('recipe', None)
 
-    # insert new drink
-    new_drink = Drink(
-        title=title,
-        recipe=json.dumps([recipe])
-    )
-    new_drink.insert()
+        # insert new drink
+        new_drink = Drink(
+            title=title,
+            recipe=json.dumps([recipe])
+        )
+        new_drink.insert()
 
-    return jsonify({
-        'success': True,
-        'drinks': new_drink.long()
-    })
+        return jsonify({
+            'success': True,
+            'drinks': new_drink.long()
+        })
+    except:
+        abort(422)
 
 '''
 @TODO implement endpoint
@@ -120,10 +123,10 @@ Example error handling for unprocessable entity
 @app.errorhandler(422)
 def unprocessable(error):
     return jsonify({
-                    "success": False, 
-                    "error": 422,
-                    "message": "unprocessable"
-                    }), 422
+        "success": False, 
+        "error": 422,
+        "message": "unprocessable"
+    }), 422
 
 '''
 @TODO implement error handlers using the @app.errorhandler(error) decorator
