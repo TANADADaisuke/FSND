@@ -86,7 +86,7 @@ def create_new_drink(payload):
 
         return jsonify({
             'success': True,
-            'drinks': new_drink.long()
+            'drinks': [new_drink.long()]
         })
     except:
         abort(422)
@@ -103,8 +103,8 @@ def create_new_drink(payload):
         or appropriate status code indicating reason for failure
 '''
 @app.route('/drinks/<int:drink_id>', methods=['PATCH'])
-# @requires_auth('patch:drinks')
-def update_drink_detail(drink_id):
+@requires_auth('patch:drinks')
+def update_drink_detail(payload, drink_id):
     try:
         body = request.get_json()
         title = body.get('title', None)
@@ -121,7 +121,7 @@ def update_drink_detail(drink_id):
 
         return jsonify({
             'success': True,
-            'drinks': drink.long()
+            'drinks': [drink.long()]
         })
     except:
         abort(422)
