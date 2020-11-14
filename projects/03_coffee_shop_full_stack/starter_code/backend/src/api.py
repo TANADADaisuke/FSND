@@ -49,7 +49,7 @@ def get_drinks():
 '''
 @app.route('/drinks-detail')
 @requires_auth('get:drinks-detail')
-def get_drinks_detail():
+def get_drinks_detail(payload):
     selection = Drink.query.all()
     drinks = []
     for drink in selection:
