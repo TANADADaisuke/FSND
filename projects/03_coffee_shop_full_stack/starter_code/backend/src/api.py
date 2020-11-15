@@ -122,13 +122,16 @@ def update_drink_detail(payload, drink_id):
         if title is not None:
             drink.title = title
         if recipe is not None:
-            drink.recipe = json.dumps([recipe])
+            if type(recipe) == list:
+                drink.recipe = json.dumps(recipe)
+            else:
+                drink.recipe = json.dumps([recipe])
 
         drink.update()
 
         return jsonify({
             'success': True,
-            'drinks': drink.long()
+            'drinks': [drink.long()]
         })
     except:
         abort(422)
