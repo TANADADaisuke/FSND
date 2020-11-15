@@ -76,12 +76,19 @@ def create_new_drink(payload):
         body = request.get_json()
         title = body.get('title', None)
         recipe = body.get('recipe', None)
-
+        print('title:', title, type(title))
+        print('recipe:', recipe, type(recipe))
         # insert new drink
-        new_drink = Drink(
-            title=title,
-            recipe=json.dumps([recipe])
-        )
+        if type(recipe) == list:
+            new_drink = Drink(
+                title=title,
+                recipe=json.dumps(recipe)
+            )
+        else:
+            new_drink = Drink( 
+                title=title,
+                recipe=json.dumps([recipe])
+            )
         new_drink.insert()
 
         return jsonify({
@@ -121,7 +128,7 @@ def update_drink_detail(payload, drink_id):
 
         return jsonify({
             'success': True,
-            'drinks': [drink.long()]
+            'drinks': drink.long()
         })
     except:
         abort(422)
