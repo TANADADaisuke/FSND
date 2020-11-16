@@ -123,13 +123,13 @@ PATCH /drinks/<id>
 @app.route('/drinks/<int:drink_id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
 def update_drink_detail(payload, drink_id):
+    body = request.get_json()
+    title = body.get('title', None)
+    recipe = body.get('recipe', None)
+    drink = Drink.query.get(drink_id)
+    if drink is None:
+        abort(404)
     try:
-        body = request.get_json()
-        title = body.get('title', None)
-        recipe = body.get('recipe', None)
-        drink = Drink.query.get(drink_id)
-        if drink is None:
-            abort(404)
         if title is not None:
             drink.title = title
         if recipe is not None:
