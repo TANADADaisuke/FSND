@@ -31,6 +31,11 @@ GET /drinks
 
 @app.route('/drinks')
 def get_drinks():
+    """Retrieve all drinks from database
+    Arguments: None
+
+    Returns: json {"success": True, "drinks": the list of drinks}
+    """
     selection = Drink.query.all()
     drinks = []
     for drink in selection:
@@ -55,6 +60,11 @@ GET /drinks-detail
 @app.route('/drinks-detail')
 @requires_auth('get:drinks-detail')
 def get_drinks_detail(payload):
+    """Retrieve drinks detail from database. Access is limited.
+    Arguments: HTTP request payload
+
+    Returns: json {"success": True, "drinks": the list of drinks detail}
+    """
     selection = Drink.query.all()
     drinks = []
     for drink in selection:
@@ -80,6 +90,11 @@ POST /drinks
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
 def create_new_drink(payload):
+    """Create new drink. Access is limited.
+    Arguments: HTTP request payload
+
+    Returns: json {"success": True, "drinks": created drink}
+    """
     try:
         body = request.get_json()
         title = body.get('title', None)
@@ -103,7 +118,7 @@ def create_new_drink(payload):
             'success': True,
             'drinks': [new_drink.long()]
         })
-    except:
+    except Exception:
         abort(422)
 
 
@@ -123,6 +138,12 @@ PATCH /drinks/<id>
 @app.route('/drinks/<int:drink_id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
 def update_drink_detail(payload, drink_id):
+    """Update drink recipe in our database. Access is limited.
+    Arguments: HTTP request payload, drink_id
+
+    Returns: json {"success":True, "drinks": updated drink}
+             If drink_id is not found, abort 404
+    """
     body = request.get_json()
     title = body.get('title', None)
     recipe = body.get('recipe', None)
@@ -144,7 +165,7 @@ def update_drink_detail(payload, drink_id):
             'success': True,
             'drinks': [drink.long()]
         })
-    except:
+    except Exception:
         abort(422)
 
 
@@ -163,6 +184,12 @@ DELETE /drinks/<id>
 @app.route('/drinks/<int:drink_id>', methods=['DELETE'])
 @requires_auth('delete:drinks')
 def delete_drink(payload, drink_id):
+    """Delete the given drink. Access is limited.
+    Arguments: HTTP request payload, drink_id
+
+    Returns: json {"success": True, "delete": drink_id}
+             If drink_id is not found, abort 404
+    """
     drink = Drink.query.get(drink_id)
     if drink is None:
         abort(404)
@@ -191,6 +218,24 @@ def not_found(error):
         'error': 404,
         'message': 'resource not found'
     }), 404
+
+
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+        'success': False,
+        'error': 400,
+        'message': 'bad request'
+    }), 400
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({
+        'success': False,
+        'error': 500,
+        'message': 'internal server error'
+    }), 500
 
 
 @app.errorhandler(AuthError)
