@@ -24,6 +24,14 @@ class AuthError(Exception):
 
 # Auth Header
 def get_token_auth_header():
+    """Fetch the token from HTTP request header.
+
+    Returns: JWT string
+
+    Note: AuthError will be raised if HTTP request header does not
+          contain Authorization header or Authorization header is
+          not 'Bearer JWT' format.
+    """
     auth = request.headers.get('Authorization', None)
     if not auth:
         raise AuthError({
@@ -69,6 +77,8 @@ def check_permissions(permission, payload):
 
 
 def verify_decode_jwt(token):
+    """Determines if the Access Token is valid.
+    """
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
     unverified_header = jwt.get_unverified_header(token)
